@@ -13,16 +13,25 @@
 npx supabase start
 
 # 2. .env.local.example を .env.local にコピーし、
-#    上のコマンドの出力にある ANON_KEY を NEXT_PUBLIC_SUPABASE_ANON_KEY / SUPABASE_ANON_KEY に貼り付ける
+#    上のコマンドの出力にある値を貼り付ける
+#    (ANON_KEY → NEXT_PUBLIC_SUPABASE_ANON_KEY / SUPABASE_ANON_KEY、
+#     SERVICE_ROLE_KEY → SUPABASE_SERVICE_ROLE_KEY)
 cp .env.local.example .env.local
 
 # 3. Next.jsアプリをDockerで起動
 docker compose up
 
-# http://localhost:3000 で確認できる
+# http://localhost:3000/new で新しい案件を作成できる
 ```
 
 止めるときは `docker compose down` と `npx supabase stop`。
+
+## できること
+
+- `/new` で案件を作成(名前 + 地図の種類: フロアプラン画像 or 実地図)すると、閲覧用/編集用リンクへ遷移する
+- 編集リンク(`/p/[viewToken]/edit/[editToken]`)では、フロアプラン画像のアップロード、地図クリックでのピン追加、ドラッグでの移動ができる
+- 閲覧リンク(`/p/[viewToken]`)では地図とピンが見られる(編集不可)
+- 同じピンを2箇所で同時に更新すると、後から保存しようとした側が競合エラーを受け取る(データは無言では上書きされない)
 
 ## テスト
 

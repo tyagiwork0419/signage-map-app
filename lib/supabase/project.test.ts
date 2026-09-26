@@ -12,6 +12,8 @@ describe('getProjectByViewToken', () => {
       name: 'テスト会場',
       map_type: 'image',
       map_image_path: null,
+      map_image_width: null,
+      map_image_height: null,
       pins: [],
     }
     const client = makeFakeClient(async () => ({ data: projectData, error: null }))

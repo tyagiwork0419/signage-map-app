@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.2",
+    "image-size": "^2.0.4",
     "leaflet": "^1.9.4",
     "next": "16.3.6",
     "react": "19.2.8",

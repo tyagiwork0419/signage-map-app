@@ -13,6 +13,8 @@ export type ProjectData = {
   name: string
   map_type: 'image' | 'geo'
   map_image_path: string | null
+  map_image_width: number | null
+  map_image_height: number | null
   pins: Pin[]
 }
 
