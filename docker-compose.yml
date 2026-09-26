@@ -1,0 +1,16 @@
+# ローカル開発用。バックエンド(Postgres/Auth/Storage等)は `supabase start` (Supabase CLI付属の
+# 別のDocker Composeスタック)が別途担当するので、ここではNext.jsアプリだけを起動する。
+# 使い方: 1) npx supabase start  2) .env.local を用意(README参照)  3) docker compose up
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    env_file:
+      - .env.local
+    environment:
+      - WATCHPACK_POLLING=true
