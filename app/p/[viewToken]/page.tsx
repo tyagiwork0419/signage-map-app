@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { createServerSupabaseClient } from '@/lib/supabase/serverClient'
 import { getProjectByViewToken } from '@/lib/supabase/project'
+import ProjectMapClient from '@/components/ProjectMapClient'
 
 // Next.js 16: paramsはPromiseなので必ずawaitする
 export default async function ProjectViewPage({
@@ -20,15 +21,14 @@ export default async function ProjectViewPage({
   }
 
   return (
-    <main className="mx-auto max-w-2xl p-8">
+    <main className="mx-auto max-w-4xl p-8">
       <h1 className="text-2xl font-bold">{project.name}</h1>
-      <p className="mt-1 text-sm text-gray-500">地図タイプ: {project.map_type}</p>
-      <p className="mt-4">設置場所ピン: {project.pins.length}件</p>
-      <ul className="mt-2 list-disc pl-5">
-        {project.pins.map((pin) => (
-          <li key={pin.id}>{pin.label || '(名称未設定)'}</li>
-        ))}
-      </ul>
+      <p className="mt-1 text-sm text-gray-500">
+        地図タイプ: {project.map_type} / 設置場所ピン: {project.pins.length}件
+      </p>
+      <div className="mt-4">
+        <ProjectMapClient mapType={project.map_type} initialPins={project.pins} />
+      </div>
     </main>
   )
 }

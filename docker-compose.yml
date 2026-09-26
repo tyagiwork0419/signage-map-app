@@ -1,6 +1,10 @@
 # ローカル開発用。バックエンド(Postgres/Auth/Storage等)は `supabase start` (Supabase CLI付属の
 # 別のDocker Composeスタック)が別途担当するので、ここではNext.jsアプリだけを起動する。
 # 使い方: 1) npx supabase start  2) .env.local を用意(README参照)  3) docker compose up
+#
+# 既知の注意点: Windows + Docker DesktopのバインドマウントだとTurbopackのファイル監視が
+# 「新しく作られたルートフォルダ(app/配下の新規page.tsx等)」を検知できないことがある。
+# 新しいページ/ルートを追加したのに404になる場合は `docker compose restart web` で直る。
 services:
   web:
     build: .
@@ -12,5 +16,3 @@ services:
       - /app/.next
     env_file:
       - .env.local
-    environment:
-      - WATCHPACK_POLLING=true
